@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageConverterPro - Free Image Converter</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="background-effects">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <!-- 1. Header with logo and navigation -->
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="/" class="logo">
+                <div class="logo-icon-wrap">
+                    <i class="fa-solid fa-layer-group logo-icon"></i>
+                </div>
+                <span>ImageConverterPro</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+
+            <button class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- 2. Hero section with title "Free Image Converter" -->
+        <section class="hero">
+            <div class="container hero-container">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    ✨ Limitless, Fast, Secure
+                </div>
+                <h1 class="hero-title">Free Image Converter</h1>
+                <p class="hero-subtitle">Transform your images seamlessly. Convert instantly between JPG, PNG, and WEBP
+                    with our lightning-fast engine. No quality loss.</p>
+
+                <div class="converter-wrapper">
+                    <div class="converter-card" id="converter-card">
+
+                        <!-- 3. Upload image box (drag and drop) -->
+                        <div class="upload-section active" id="upload-section">
+                            <div class="drop-zone" id="drop-zone">
+                                <input type="file" id="file-input" accept="image/*" hidden>
+                                <div class="drop-zone-content">
+                                    <div class="upload-icon-container">
+                                        <div class="upload-icon-pulse"></div>
+                                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                                    </div>
+                                    <h3>Drag & Drop to upload</h3>
+                                    <p class="text-sm text-muted">or <span class="text-primary cursor-pointer"
+                                            onclick="document.getElementById('file-input').click()">browse files</span>
+                                        on your device</p>
+                                    <p class="text-xs text-muted mt-4">Supports JPG, PNG, WEBP (Max 20MB)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview & Convert State -->
+                        <div class="action-section hidden" id="action-section">
+                            <div class="file-preview-card">
+                                <div class="preview-info">
+                                    <div class="preview-image-container">
+                                        <img id="preview-image" src="" alt="Preview">
+                                    </div>
+                                    <div class="file-details">
+                                        <h4 id="file-name" class="truncate">filename.jpg</h4>
+                                        <p id="file-size" class="text-sm text-muted">1.2 MB</p>
+                                    </div>
+                                </div>
+                                <button class="btn-icon remove-btn" id="remove-btn" title="Remove file">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+
+                            <div class="conversion-settings">
+                                <h4>Format Settings</h4>
+                                <div class="settings-row">
+                                    <label for="format-select">Convert to:</label>
+                                    <!-- 4. Format selection dropdown -->
+                                    <div class="custom-select-wrapper">
+                                        <select id="format-select" class="custom-select" name="format">
+                                            <option value="jpg">JPG Format (.jpg)</option>
+                                            <option value="png">PNG Format (.png)</option>
+                                            <option value="webp">WEBP Format (.webp)</option>
+                                        </select>
+                                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 5. Convert button -->
+                            <button class="btn btn-primary convert-btn w-full mt-4" id="convert-btn">
+                                <span>Convert Image</span>
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </button>
+                        </div>
+
+                        <!-- Result State -->
+                        <div class="result-section hidden" id="result-section">
+                            <div class="success-content">
+                                <div class="success-animation">
+                                    <div class="success-icon-container">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                </div>
+                                <h3>Conversion Successful!</h3>
+                                <p class="text-muted mb-4">Your image has been processed and is ready.</p>
+
+                                <div class="result-actions">
+                                    <!-- 6. Download button -->
+                                    <a href="#" id="download-link" class="btn btn-success w-full mb-3"
+                                        download="converted-image.jpg">
+                                        <i class="fa-solid fa-download"></i>
+                                        <span>Download Image</span>
+                                    </a>
+                                    <button class="btn btn-outline w-full" id="convert-another-btn">
+                                        Convert Another File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="loading-overlay hidden" id="loading-overlay">
+                            <div class="glass-loader">
+                                <div class="loader-spinner"></div>
+                                <p class="loading-text">Processing image...</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minor details section -->
+        <section class="features" id="features">
+            <div class="container container-sm">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper mb-3">
+                            <i class="fa-solid fa-bolt text-primary text-xl"></i>
+                        </div>
+                        <h4>Lightning Fast</h4>
+                        <p class="text-sm text-muted mt-2">Powered by a high-performance conversion engine for instant
+                            results.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper mb-3">
+                            <i class="fa-solid fa-shield-halved text-success text-xl"></i>
+                        </div>
+                        <h4>Secure & Private</h4>
+                        <p class="text-sm text-muted mt-2">Your files are processed securely and deleted automatically
+                            from our servers.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper mb-3">
+                            <i class="fa-solid fa-laptop-mobile text-info text-xl"></i>
+                        </div>
+                        <h4>Works Anywhere</h4>
+                        <p class="text-sm text-muted mt-2">Responsive interface that works flawlessly on desktop and
+                            mobile browsers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works section -->
+        <section class="how-it-works" id="how-it-works">
+            <div class="container container-sm">
+                <div class="section-header text-center mb-4">
+                    <h2>How It Works</h2>
+                    <p class="text-muted mt-2">Convert your images in three simple steps</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>Upload Image</h4>
+                        <p class="text-sm text-muted mt-2">Drag and drop or browse to select the image you want to
+                            convert. We support JPG, PNG, and WEBP formats up to 20MB.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>Select Format</h4>
+                        <p class="text-sm text-muted mt-2">Choose your desired output format from the dropdown menu. Our
+                            engine automatically optimizes the conversion.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>Download</h4>
+                        <p class="text-sm text-muted mt-2">Click convert and instantly download your newly formatted
+                            image with zero quality loss.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ section -->
+        <section class="faq" id="faq">
+            <div class="container container-sm">
+                <div class="section-header text-center mb-4">
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="text-muted mt-2">Everything you need to know about our service</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>Is this service completely free?</h4>
+                        <p class="text-sm text-muted mt-2">Yes! ImageConverterPro is 100% free to use with no hidden
+                            fees, subscriptions, or watermarks added to your images.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Are my images secure?</h4>
+                        <p class="text-sm text-muted mt-2">Absolutely. All conversions happen entirely in-memory on our
+                            secure servers, and your files are permanently deleted immediately after processing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Does converting reduce image quality?</h4>
+                        <p class="text-sm text-muted mt-2">No. We use professional-grade processing algorithms to ensure
+                            your output image maintains the highest possible quality relative to your original file.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. Footer with links -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="logo mb-3">
+                    <i class="fa-solid fa-layer-group logo-icon"></i>
+                    <span>ImageConverterPro</span>
+                </div>
+                <p class="text-sm text-muted">The ultimate tool for high-quality, fast, and secure image format
+                    conversions.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-group">
+                    <h5>Product</h5>
+                    <a href="#">Features</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 ImageConverterPro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+
+</html>
